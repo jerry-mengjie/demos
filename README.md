@@ -43,3 +43,11 @@ npm run dev
 - 构建 NestJS
 
 在仓库的 Actions 页面可查看执行结果。
+
+## GitHub 前端页面地址
+
+已配置 GitHub Pages 自动部署前端（`main` 分支触发）：
+
+- 预计访问地址：`https://jerry-mengjie.github.io/demos/`
+
+首次访问前，请在仓库 `Settings -> Pages` 中确认 Source 为 `GitHub Actions`。

@@ -1,34 +1,61 @@
+# 工作流名称，会显示在 GitHub Actions 页面
 name: Fullstack CI
 
+# 触发条件配置
 on:
+  # 当代码被推送到任意分支时触发
   push:
+    # 匹配所有分支
     branches: ["**"]
+  # 当创建或更新 Pull Request 时触发
   pull_request:
 
+# 定义要执行的任务（job）
 jobs:
+  # 构建任务 ID（可自定义）
   build:
+    # 运行环境：最新 Ubuntu
     runs-on: ubuntu-latest
+    # 任务步骤列表
     steps:
+      # 步骤名称：拉取仓库代码
       - name: Checkout
+        # 使用官方 checkout action（v4）
         uses: actions/checkout@v4
 
+      # 步骤名称：安装并配置 Node.js
       - name: Setup Node
+        # 使用官方 setup-node action（v4）
         uses: actions/setup-node@v4
+        # 传递给 setup-node 的参数
         with:
+          # 指定 Node.js 版本为 20
           node-version: 20
 
+      # 步骤名称：安装前端依赖
       - name: Install frontend
+        # 执行 npm install
         run: npm install
+        # 在 React 目录中执行命令
         working-directory: React
 
+      # 步骤名称：构建前端项目
       - name: Build frontend
+        # 执行前端构建脚本
         run: npm run build
+        # 在 React 目录中执行命令
         working-directory: React
 
+      # 步骤名称：安装后端依赖
       - name: Install backend
+        # 执行 npm install
         run: npm install
+        # 在 Nestjs 目录中执行命令
         working-directory: Nestjs
 
+      # 步骤名称：构建后端项目
       - name: Build backend
+        # 执行后端构建脚本
         run: npm run build
+        # 在 Nestjs 目录中执行命令
         working-directory: Nestjs
