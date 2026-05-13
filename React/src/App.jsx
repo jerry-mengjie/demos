@@ -1,8 +1,19 @@
 import { useEffect, useState } from "react";
 
-const apiBase =
-  import.meta.env.VITE_API_URL ||
-  (import.meta.env.DEV ? "" : "https://demos-nest-api.onrender.com");
+const remoteApiBase = import.meta.env.VITE_API_URL || "";
+const staticContentUrl = `${import.meta.env.BASE_URL}api/content.json`;
+
+function resolveContentUrl() {
+  if (import.meta.env.DEV) {
+    return "/api/content";
+  }
+
+  if (remoteApiBase) {
+    return `${remoteApiBase}/api/content`;
+  }
+
+  return staticContentUrl;
+}
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -13,7 +24,7 @@ export default function App() {
     async function loadContent() {
       try {
         setLoading(true);
-        const response = await fetch(`${apiBase}/api/content`, {
+        const response = await fetch(resolveContentUrl(), {
           headers: {
             Accept: "application/json"
           }

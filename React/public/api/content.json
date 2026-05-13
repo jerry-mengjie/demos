@@ -1,0 +1,9 @@
+{
+  "title": "React + NestJS Demo",
+  "subtitle": "当前页面使用 GitHub Pages 免费域名展示",
+  "items": [
+    "线上地址: jerry-mengjie.github.io/demos",
+    "数据来源: Pages 静态 JSON",
+    "本地联调: 仍可直连 NestJS /api/content"
+  ]
+}
