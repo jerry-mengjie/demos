@@ -38,6 +38,7 @@ jobs:
         working-directory: React
         env:
           VITE_BASE_PATH: /demos/
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: demos-nest-api
+    runtime: node
+    rootDir: Nestjs
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_VERSION
+        value: 20

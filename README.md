@@ -51,3 +51,29 @@ npm run dev
 - 预计访问地址：`https://jerry-mengjie.github.io/demos/`
 
 首次访问前，请在仓库 `Settings -> Pages` 中确认 Source 为 `GitHub Actions`。
+
+## 线上前后端联通（GitHub + Render）
+
+为了让 GitHub Pages 页面不再请求本地接口，需要部署 NestJS 到公网（已加入 Render 配置）：
+
+### 1) 创建 Render 服务
+
+- 登录 Render，选择 `New +` -> `Blueprint`
+- 连接仓库 `jerry-mengjie/demos`
+- 选择仓库根目录的 `render.yaml` 创建服务
+- 创建完成后会得到一个后端地址，例如 `https://demos-nest-api.onrender.com`
+- 可访问 `https://<你的后端域名>/api/health` 验证后端在线
+
+### 2) 配置 GitHub Pages 前端 API 地址
+
+- 打开仓库 `Settings -> Secrets and variables -> Actions -> Variables`
+- 新建变量：`VITE_API_URL`，值填你的 Render 后端地址（不带结尾 `/`）
+- 例如：`https://demos-nest-api.onrender.com`
+
+### 3) 触发部署
+
+- 后端：先在 Render 服务里创建 Deploy Hook，并在 GitHub `Secrets` 新建
+  `RENDER_DEPLOY_HOOK_URL`，然后运行 `Deploy Backend to Render` 工作流（或推送 `Nestjs/` 代码自动触发）
+- 前端：`Deploy Frontend to Pages` 工作流（推送 `main` 自动触发）
+
+部署成功后，你的在线页面会通过 `VITE_API_URL/api/content` 获取内容。
