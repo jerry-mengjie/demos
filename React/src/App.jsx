@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 
 const remoteApiBase = import.meta.env.VITE_API_URL || "";
-const staticContentUrl = `${import.meta.env.BASE_URL}api/content.json`;
 
 function resolveContentUrl() {
-  if (import.meta.env.DEV) {
-    return "/api/content";
-  }
-
-  if (remoteApiBase) {
-    return `${remoteApiBase}/api/content`;
-  }
-
-  return staticContentUrl;
+  if (import.meta.env.DEV) return "/api/content";
+  if (!remoteApiBase) throw new Error("未配置 VITE_API_URL");
+  return `${remoteApiBase}/api/content`;
 }
 
 export default function App() {
